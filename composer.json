@@ -1,13 +1,12 @@
 {
-    "name": "your/library",
-    "description": "Description of your library",
+    "name": "snapauth/sdk",
+    "description": "SnapAuth SDK",
     "keywords": [],
     "type": "library",
-    "license": "MIT",
     "authors": [
         {
-            "name": "Your Name",
-            "email": "you@example.com"
+            "name": "Eric Stern",
+            "email": "eric@snapauth.app"
         }
     ],
     "config": {
@@ -16,16 +15,17 @@
     },
     "autoload": {
         "psr-4": {
-            "Your\\Library\\": "src"
+            "SnapAuth\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Your\\Library\\": "tests"
+            "SnapAuth\\": "tests"
         }
     },
     "require": {
-        "php": "^7.4 || ^8.0"
+        "php": "^7.4 || ^8.0",
+        "ext-curl": "*"
     },
     "require-dev": {
         "maglnet/composer-require-checker": "^2.0 || ^3.0 || ^4.0",
