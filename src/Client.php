@@ -42,7 +42,7 @@ class Client
 {
     private const DEFAULT_API_HOST = 'https://api.snapauth.app';
 
-    private const VERSION = '0.0.1';
+    private const VERSION = '0.1.0';
 
     public function __construct(
         #[SensitiveParameter] private string $secretKey,
