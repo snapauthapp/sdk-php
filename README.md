@@ -2,6 +2,9 @@
 
 This is the official PHP SDK for [SnapAuth](https://www.snapauth.app).
 
+![Packagist Version](https://img.shields.io/packagist/v/snapauth/sdk)
+
+
 ## Documentation
 
 Full API and usage docs are available [at the official site](https://docs.snapauth.app/server.html#introduction).
