@@ -47,6 +47,9 @@ class Client
         #[SensitiveParameter] private string $secretKey,
         private string $apiHost = self::DEFAULT_API_HOST,
     ) {
+        if (!str_starts_with($secretKey, 'secret_')) {
+            throw new ApiError('Invalid secret key. Please verify you copied the full value from the SnapAuth dashboard.');
+        }
     }
 
     /**
@@ -149,5 +152,13 @@ class Client
     {
         throw new ApiError();
         // TODO: also make this more specific
+    }
+
+    public function __debugInfo(): array
+    {
+        return [
+            'apiHost' => $this->apiHost,
+            'secretKey' => substr($this->secretKey, 0, 9) . '***' . substr($this->secretKey, -2),
+        ];
     }
 }
