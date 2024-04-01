@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SnapAuth;
 
-readonly class AuthResponse
+class AuthResponse
 {
-    public User $user;
+    public readonly User $user;
 
     // @phpstan-ignore-next-line
     public function __construct(array $data)

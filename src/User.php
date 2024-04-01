@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace SnapAuth;
 
-readonly class User
+class User
 {
-    public string $id;
-    public string $handle;
+    public readonly string $id;
+    public readonly string $handle;
 
     // @phpstan-ignore-next-line
     public function __construct(array $data)
