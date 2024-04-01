@@ -48,7 +48,9 @@ class Client
         private string $apiHost = self::DEFAULT_API_HOST,
     ) {
         if (!str_starts_with($secretKey, 'secret_')) {
-            throw new ApiError('Invalid secret key. Please verify you copied the full value from the SnapAuth dashboard.');
+            throw new ApiError(
+                'Invalid secret key. Please verify you copied the full value from the SnapAuth dashboard.',
+            );
         }
     }
 
