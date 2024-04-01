@@ -114,7 +114,7 @@ class Client
                     curl_version()['version'] ?? 'unknown',
                     PHP_VERSION,
                 ),
-                sprintf('X-SDK-Version: php/%s', InstalledVersions::getVersion('snapauth/sdk')),
+                sprintf('X-SDK: php/%s', InstalledVersions::getVersion('snapauth/sdk')),
             ],
         ]);
 
