@@ -99,7 +99,7 @@ All SnapAuth exceptions are an `instanceof \SnapAuth\ApiError`.
 We follow semantic versioning, and limit backwards-incompatible changes to major versions (the X in X.Y.Z) only.
 
 The SnapAuth SDK is maintained for all versions of PHP with [current security support](https://www.php.net/supported-versions.php).
-Since Composer will platform-detect your currently-installed version of PHP, dropping support for older versions is _not_ considered a backwards compatibility break.
+Since Composer will platform-detect your currently-installed version of PHP, dropping support for older versions is _not_ considered a backwards compatibility break (but you may be unable to install newer versions until updating to a supported version of PHP).
 
 Anything marked as `@internal` or any `protected` or `private` method is not considered in scope for backwards-compatibility guarantees.
 Similarly, all methods should be treated as ones that may throw an exception, and as such new types of exceptions are not considered a BC break either.
