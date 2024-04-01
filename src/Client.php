@@ -115,6 +115,7 @@ class Client
                     curl_version()['version'] ?? 'unknown',
                     PHP_VERSION,
                 ),
+                sprintf('X-SDK-Version: php/%s', self::VERSION),
             ],
         ]);
 
