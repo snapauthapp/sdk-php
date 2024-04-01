@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SnapAuth;
 
+use Composer\InstalledVersions;
 use JsonException;
 use SensitiveParameter;
 
@@ -41,8 +42,6 @@ use const JSON_THROW_ON_ERROR;
 class Client
 {
     private const DEFAULT_API_HOST = 'https://api.snapauth.app';
-
-    private const VERSION = '0.1.0';
 
     public function __construct(
         #[SensitiveParameter] private string $secretKey,
@@ -111,11 +110,11 @@ class Client
                 'Content-Length: ' . strlen($json),
                 sprintf(
                     'User-Agent: php-sdk/%s curl/%s php/%s',
-                    self::VERSION,
+                    InstalledVersions::getVersion('snapauth/sdk'),
                     curl_version()['version'] ?? 'unknown',
                     PHP_VERSION,
                 ),
-                sprintf('X-SDK-Version: php/%s', self::VERSION),
+                sprintf('X-SDK-Version: php/%s', InstalledVersions::getVersion('snapauth/sdk')),
             ],
         ]);
 
