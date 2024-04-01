@@ -1,5 +1,11 @@
 # SnapAuth PHP SDK
 
+This is the official PHP SDK for [SnapAuth](https://www.snapauth.app).
+
+## Documentation
+
+Full API and usage docs are available [at the official site](https://docs.snapauth.app/server.html#introduction).
+
 ## Installation
 
 ```bash
@@ -9,7 +15,7 @@ composer require snapauth/sdk
 ## Setup
 
 Get your _secret_ key from the [dashboard](https://dashboard.snapauth.app).
-Provide it to the SnapAuth\Client class:
+Provide it to the `SnapAuth\Client` class:
 
 ```php
 use SnapAuth\Client;
@@ -21,13 +27,13 @@ $snapAuth = new Client(secretKey: $yourSecret);
 > [!TIP]
 > Secret keys are specific to an environment and domain.
 > We HIGHLY RECOMMEND using environment variables or another external storage mechanism.
-> Avoid committing them to version control.
+> Avoid committing them to version control, as this can more easily lead to compromise.
 
 ## Usage
 
 ### Registration
 
-Once you obtain a registration token from your frontend, use the Client to complete the process and attach it to the user:
+Once you obtain a registration token from your frontend, use the `Client` to complete the process and attach it to the user:
 
 ```php
 $token = 'value_from_frontend'; // $_POST['snapauth_token'] or similar
@@ -38,8 +44,10 @@ $userInfo = [
 $snapAuth->attachRegistration($token, $userInfo);
 ```
 
+<!--
 Registration returns an `AttachResponse` object, which contains a credential identifier.
 You may store this information at your end, but it's not necessary in most cases.
+-->
 
 This activates the passkey and associates it with the user.
 `$userInfo` will be provided back to you during authentication, so you know who is signing in.
@@ -63,6 +71,7 @@ Lookups during authentication are **case-insensitive**.
 Like registration, you will need to obtain a token from your frontend provided by the client SDK.
 
 Use the `verifyAuthToken` method to get information about the authentication process, in the form of an `AuthResponse` object.
+This object contains the previously-registered User `id` and `handle`.
 
 ```php
 $token = 'value_from_frontend'; // $_POST['snapauth_token'] or similar
