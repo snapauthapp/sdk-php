@@ -36,7 +36,7 @@ use const JSON_THROW_ON_ERROR;
  * internal use, forcing a completely dogfooded experience.
  *
  * TODO: make testable, presumably via PSR-18
- * TODO: make an inteface so the enture client can be mocked by developers
+ * TODO: make an interface so the entire client can be mocked by developers
  */
 class Client
 {
