@@ -44,9 +44,17 @@ class Client
     private const DEFAULT_API_HOST = 'https://api.snapauth.app';
 
     public function __construct(
-        #[SensitiveParameter] private string $secretKey,
+        #[SensitiveParameter] private ?string $secretKey = null,
         private string $apiHost = self::DEFAULT_API_HOST,
     ) {
+        // Auto-detect if not provided
+        if ($secretKey === null) {
+            $env = getenv('SNAPAUTH_SECRET_KEY');
+            if ($env === false) {
+                throw new ApiError('Secret key missing. It can be explictly provided, or will be auto-detected from the SNAPAUTH_SECRET_KEY environment variable.');
+            }
+            $secretKey = $env;
+        }
         if (!str_starts_with($secretKey, 'secret_')) {
             throw new ApiError(
                 'Invalid secret key. Please verify you copied the full value from the SnapAuth dashboard.',
