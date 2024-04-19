@@ -2,7 +2,10 @@
 
 This is the official PHP SDK for [SnapAuth](https://www.snapauth.app).
 
-![Packagist Version](https://img.shields.io/packagist/v/snapauth/sdk)
+[![Packagist Version](https://img.shields.io/packagist/v/snapauth/sdk)](https://packagist.org/packages/snapauth/sdk)
+[![Test](https://github.com/snapauthapp/sdk-php/actions/workflows/test.yml/badge.svg)](https://github.com/snapauthapp/sdk-php/actions/workflows/test.yml)
+[![Lint](https://github.com/snapauthapp/sdk-php/actions/workflows/lint.yml/badge.svg)](https://github.com/snapauthapp/sdk-php/actions/workflows/lint.yml)
+[![Static analysis](https://github.com/snapauthapp/sdk-php/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/snapauthapp/sdk-php/actions/workflows/static-analysis.yml)
 
 
 ## Documentation
