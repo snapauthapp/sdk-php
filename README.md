@@ -31,6 +31,8 @@ $snapAuth = new Client(secretKey: $yourSecret);
 > Secret keys are specific to an environment and domain.
 > We HIGHLY RECOMMEND using environment variables or another external storage mechanism.
 > Avoid committing them to version control, as this can more easily lead to compromise.
+>
+> The SDK will auto-detect the `SNAPAUTH_SECRET_KEY` environment variable if you do not provide a value directly.
 
 ## Usage
 
