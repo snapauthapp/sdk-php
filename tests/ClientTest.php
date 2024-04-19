@@ -19,6 +19,14 @@ class ClientTest extends TestCase
         self::assertInstanceOf(Client::class, $client);
     }
 
+    public function testConstructSecretKeyAutodetectMissing(): void
+    {
+        assert(getenv('SNAPAUTH_SECRET_KEY') === false);
+        self::expectException(ApiError::class);
+        self::expectExceptionMessage('Secret key missing.');
+        new Client();
+    }
+
     public function testSecretKeyValidation(): void
     {
         self::expectException(ApiError::class);
