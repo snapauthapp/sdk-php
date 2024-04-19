@@ -19,6 +19,15 @@ class ClientTest extends TestCase
         self::assertInstanceOf(Client::class, $client);
     }
 
+    public function testConstructSecretKeyAutodetectInvalid(): void
+    {
+        assert(getenv('SNAPAUTH_SECRET_KEY') === false);
+        putenv('SNAPAUTH_SECRET_KEY=invalid');
+        self::expectException(ApiError::class);
+        self::expectExceptionMessage('Invalid secret key.');
+        new Client();
+    }
+
     public function testConstructSecretKeyAutodetectMissing(): void
     {
         assert(getenv('SNAPAUTH_SECRET_KEY') === false);
@@ -38,5 +47,11 @@ class ClientTest extends TestCase
         $client = new Client(secretKey: 'secret_abc_123');
         $result = print_r($client, true);
         self::assertStringNotContainsString('secret_abc_123', $result);
+    }
+
+    public function tearDown(): void
+    {
+        // Note: trailing = sets it to empty string. This actually clears it.
+        putenv('SNAPAUTH_SECRET_KEY');
     }
 }
