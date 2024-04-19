@@ -53,7 +53,11 @@ class Client
         if ($secretKey === null) {
             $env = getenv('SNAPAUTH_SECRET_KEY');
             if ($env === false) {
-                throw new ApiError('Secret key missing. It can be explictly provided, or will be auto-detected from the SNAPAUTH_SECRET_KEY environment variable.');
+                throw new ApiError(
+                    'Secret key missing. It can be explictly provided, or it ' .
+                    'can be auto-detected from the SNAPAUTH_SECRET_KEY ' .
+                    'environment variable.',
+                );
             }
             $secretKey = $env;
         }
