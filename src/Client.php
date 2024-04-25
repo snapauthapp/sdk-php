@@ -70,14 +70,6 @@ class Client
         $this->secretKey = $secretKey;
     }
 
-    /**
-     * return array{
-     *   user: array{
-     *     id: string,
-     *     handle: string,
-     *   },
-     * }
-     */
     public function verifyAuthToken(string $authToken): AuthResponse
     {
         return $this->makeApiCall(
@@ -91,8 +83,8 @@ class Client
 
     /**
      * @param array{
-     *   handle: string,
-     *   id?: string,
+     *   handle?: string,
+     *   id: string,
      * } $user
      */
     public function attachRegistration(string $regToken, array $user): AttachResponse
