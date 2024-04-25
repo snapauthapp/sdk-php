@@ -49,11 +49,6 @@ class ClientTest extends TestCase
         self::assertStringNotContainsString('secret_abc_123', $result);
     }
 
-    public function testFailing(): void
-    {
-        self::assertSame(1, 3);
-    }
-
     public function tearDown(): void
     {
         // Note: trailing = sets it to empty string. This actually clears it.
