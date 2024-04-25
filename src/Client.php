@@ -43,25 +43,33 @@ class Client
 {
     private const DEFAULT_API_HOST = 'https://api.snapauth.app';
 
+    private string $secretKey;
+
     public function __construct(
-        #[SensitiveParameter] private string $secretKey,
+        #[SensitiveParameter] ?string $secretKey = null,
         private string $apiHost = self::DEFAULT_API_HOST,
     ) {
+        // Auto-detect if not provided
+        if ($secretKey === null) {
+            $env = getenv('SNAPAUTH_SECRET_KEY');
+            if ($env === false) {
+                throw new ApiError(
+                    'Secret key missing. It can be explictly provided, or it ' .
+                    'can be auto-detected from the SNAPAUTH_SECRET_KEY ' .
+                    'environment variable.',
+                );
+            }
+            $secretKey = $env;
+        }
         if (!str_starts_with($secretKey, 'secret_')) {
             throw new ApiError(
                 'Invalid secret key. Please verify you copied the full value from the SnapAuth dashboard.',
             );
         }
+
+        $this->secretKey = $secretKey;
     }
 
-    /**
-     * return array{
-     *   user: array{
-     *     id: string,
-     *     handle: string,
-     *   },
-     * }
-     */
     public function verifyAuthToken(string $authToken): AuthResponse
     {
         return $this->makeApiCall(
@@ -75,8 +83,8 @@ class Client
 
     /**
      * @param array{
-     *   handle: string,
-     *   id?: string,
+     *   handle?: string,
+     *   id: string,
      * } $user
      */
     public function attachRegistration(string $regToken, array $user): AttachResponse

@@ -2,8 +2,13 @@
 
 This is the official PHP SDK for [SnapAuth](https://www.snapauth.app).
 
-![Packagist Version](https://img.shields.io/packagist/v/snapauth/sdk)
+[![Latest Stable Version](http://poser.pugx.org/snapauth/sdk/v)](https://packagist.org/packages/snapauth/sdk)
+[![PHP Version Require](http://poser.pugx.org/snapauth/sdk/require/php)](https://packagist.org/packages/snapauth/sdk)
+[![License](http://poser.pugx.org/snapauth/sdk/license)](https://packagist.org/packages/snapauth/sdk)
 
+[![Test](https://github.com/snapauthapp/sdk-php/actions/workflows/test.yml/badge.svg)](https://github.com/snapauthapp/sdk-php/actions/workflows/test.yml)
+[![Lint](https://github.com/snapauthapp/sdk-php/actions/workflows/lint.yml/badge.svg)](https://github.com/snapauthapp/sdk-php/actions/workflows/lint.yml)
+[![Static analysis](https://github.com/snapauthapp/sdk-php/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/snapauthapp/sdk-php/actions/workflows/static-analysis.yml)
 
 ## Documentation
 
@@ -31,6 +36,8 @@ $snapAuth = new Client(secretKey: $yourSecret);
 > Secret keys are specific to an environment and domain.
 > We HIGHLY RECOMMEND using environment variables or another external storage mechanism.
 > Avoid committing them to version control, as this can more easily lead to compromise.
+>
+> The SDK will auto-detect the `SNAPAUTH_SECRET_KEY` environment variable if you do not provide a value directly.
 
 ## Usage
 

@@ -3,6 +3,7 @@
     "description": "SnapAuth SDK",
     "keywords": [],
     "type": "library",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Eric Stern",
