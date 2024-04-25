@@ -31,4 +31,9 @@ class ClientTest extends TestCase
         $result = print_r($client, true);
         self::assertStringNotContainsString('secret_abc_123', $result);
     }
+
+    public function testFailing(): void
+    {
+        self::assertSame(1, 3);
+    }
 }

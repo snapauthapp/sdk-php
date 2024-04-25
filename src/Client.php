@@ -156,7 +156,7 @@ class Client
         // TODO: also make this more specific
     }
 
-    public function _debugInfo(): array
+    public function __debugInfo(): array
     {
         return [
             'apiHost' => $this->apiHost,
