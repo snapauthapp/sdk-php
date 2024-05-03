@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace SnapAuth;
 
-class AttachResponse
+class Credential
 {
+    public readonly string $id;
+
     // @phpstan-ignore-next-line
     public function __construct(array $data)
     {
-        // Intentionally empty for now - response format uncertain
+        $this->id = $data['id'];
     }
 }
