@@ -71,11 +71,14 @@ jobs:
           --prefer-dist
           --prefer-lowest
 
+      - name: Configure matchers
+        uses: mheap/phpunit-matcher-action@5fe8d131daf5183c6137caea0d4e04a2b8afbb55
+
       - name: PHPUnit
         run: vendor/bin/phpunit
           --coverage-clover coverage.xml
           --coverage-text
-          --printer mheap\\GithubActionsReporter\\Printer
+          --teamcity
 
       - name: Submit code coverage
         if: ${{ always() }}
