@@ -87,7 +87,7 @@ class Client
      *   id: string,
      * } $user
      */
-    public function attachRegistration(string $regToken, array $user): AttachResponse
+    public function attachRegistration(string $regToken, array $user): Credential
     {
         return $this->makeApiCall(
             route: '/registration/attach',
@@ -95,7 +95,7 @@ class Client
                 'token' => $regToken,
                 'user' => $user,
             ],
-            type: AttachResponse::class
+            type: Credential::class
         );
     }
 
