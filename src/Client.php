@@ -72,13 +72,12 @@ class Client
 
     public function verifyAuthToken(string $authToken): AuthResponse
     {
-        return $this->makeApiCall(
+        return new AuthResponse($this->makeApiCall(
             route: '/auth/verify',
-            data: [
+            params: [
                 'token' => $authToken,
-            ],
-            type: AuthResponse::class,
-        );
+            ]
+        ));
     }
 
     /**
@@ -89,26 +88,23 @@ class Client
      */
     public function attachRegistration(string $regToken, array $user): Credential
     {
-        return $this->makeApiCall(
+        return new Credential($this->makeApiCall(
             route: '/registration/attach',
-            data: [
+            params: [
                 'token' => $regToken,
                 'user' => $user,
-            ],
-            type: Credential::class
-        );
+            ]
+        ));
     }
 
     /**
-     * @template T of object
-     * @param mixed[] $data
-     * @param class-string<T> $type
-     * @return T
+     * @param mixed[] $params
+     * @return mixed[]
      */
-    private function makeApiCall(string $route, array $data, string $type): object
+    private function makeApiCall(string $route, array $params): array
     {
         // TODO: PSR-xx
-        $json = json_encode($data, JSON_THROW_ON_ERROR);
+        $json = json_encode($params, JSON_THROW_ON_ERROR);
         $ch = curl_init();
         curl_setopt_array($ch, [
             CURLOPT_URL => sprintf('%s%s', $this->apiHost, $route),
@@ -147,7 +143,7 @@ class Client
             assert(is_string($response));
             $decoded = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
             assert(is_array($decoded));
-            return new $type($decoded['result']);
+            return $decoded['result'];
         } catch (JsonException) {
             $this->error();
         } finally {
