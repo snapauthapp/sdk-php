@@ -89,7 +89,7 @@ class Client
     public function attachRegistration(string $regToken, array $user): Credential
     {
         return new Credential($this->makeApiCall(
-            route: '/registration/attach',
+            route: '/credential/create',
             params: [
                 'token' => $regToken,
                 'user' => $user,
