@@ -98,10 +98,14 @@ class Client
     }
 
     /**
+     * @internal This method is made public for cases where APIs do not have
+     * native SDK support, but is NOT considered part of the public, stable
+     * API and is not subject to SemVer.
+     *
      * @param mixed[] $params
      * @return mixed[]
      */
-    private function makeApiCall(string $route, array $params): array
+    public function makeApiCall(string $route, array $params): array
     {
         // TODO: PSR-xx
         $json = json_encode($params, JSON_THROW_ON_ERROR);
@@ -110,7 +114,6 @@ class Client
             CURLOPT_URL => sprintf('%s%s', $this->apiHost, $route),
             CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => $json,
-            // CURLOPT_VERBOSE => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
                 'Authorization: Basic ' . base64_encode(':' . $this->secretKey),
