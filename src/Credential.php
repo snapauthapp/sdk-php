@@ -21,7 +21,19 @@ class Credential
      */
     public readonly array $transports;
 
-    // @phpstan-ignore-next-line
+    /**
+     * @param array{
+     *   id: string,
+     *   aaguid: string,
+     *   name: string,
+     *   isActive: bool,
+     *   isBackedUp: bool,
+     *   isBackupEligible: bool,
+     *   isUvInitialized: bool,
+     *   createdAt: int,
+     *   transports: string[],
+     * } $data
+     */
     public function __construct(array $data)
     {
         $this->id = $data['id'];
