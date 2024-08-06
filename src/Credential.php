@@ -22,7 +22,10 @@ class Credential
     public readonly array $transports;
 
     /**
-     * @param array{
+     * @phpstan-ignore-next-line
+     *
+     * This is the correct shape:
+     * param array{
      *   id: string,
      *   aaguid: string,
      *   name: string,
