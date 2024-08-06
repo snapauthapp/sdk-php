@@ -2,9 +2,9 @@
 
 This is the official PHP SDK for [SnapAuth](https://www.snapauth.app).
 
-[![Latest Stable Version](http://poser.pugx.org/snapauth/sdk/v)](https://packagist.org/packages/snapauth/sdk)
-[![PHP Version Require](http://poser.pugx.org/snapauth/sdk/require/php)](https://packagist.org/packages/snapauth/sdk)
-[![License](http://poser.pugx.org/snapauth/sdk/license)](https://packagist.org/packages/snapauth/sdk)
+[![Latest Stable Version](https://poser.pugx.org/snapauth/sdk/v)](https://packagist.org/packages/snapauth/sdk)
+[![PHP Version Require](https://poser.pugx.org/snapauth/sdk/require/php)](https://packagist.org/packages/snapauth/sdk)
+[![License](https://poser.pugx.org/snapauth/sdk/license)](https://packagist.org/packages/snapauth/sdk)
 
 [![Test](https://github.com/snapauthapp/sdk-php/actions/workflows/test.yml/badge.svg)](https://github.com/snapauthapp/sdk-php/actions/workflows/test.yml)
 [![Lint](https://github.com/snapauthapp/sdk-php/actions/workflows/lint.yml/badge.svg)](https://github.com/snapauthapp/sdk-php/actions/workflows/lint.yml)
