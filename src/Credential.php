@@ -22,6 +22,9 @@ class Credential
     public readonly array $transports;
 
     /**
+     * @internal The Credential object is part of the SDK, but its constructor
+     * is not part of SemVer scope.
+     *
      * @phpstan-ignore-next-line
      *
      * This is the correct shape:
