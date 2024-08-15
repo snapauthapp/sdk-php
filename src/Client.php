@@ -71,10 +71,7 @@ class Client
         }
 
         $this->secretKey = $secretKey;
-        if ($transport === null) {
-            $transport = new Transport\Curl();
-        }
-        $this->transport = $transport;
+        $this->transport = $transport ?? new Transport\Curl();
     }
 
     public function verifyAuthToken(string $authToken): AuthResponse
