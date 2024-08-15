@@ -6,6 +6,23 @@ namespace SnapAuth\Transport;
 
 use JsonException;
 
+use function curl_close;
+use function curl_errno;
+use function curl_exec;
+use function curl_getinfo;
+use function curl_init;
+use function curl_setopt_array;
+use function curl_version;
+
+use const CURLE_OK;
+use const CURLINFO_RESPONSE_CODE;
+use const CURLOPT_HTTPHEADER;
+use const CURLOPT_POST;
+use const CURLOPT_POSTFIELDS;
+use const CURLOPT_RETURNTRANSFER;
+use const CURLOPT_URL;
+use const JSON_THROW_ON_ERROR;
+
 final class Curl implements TransportInterface
 {
     public function makeApiCall(string $route, array $params): Response

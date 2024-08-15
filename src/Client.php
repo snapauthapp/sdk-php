@@ -5,32 +5,15 @@ declare(strict_types=1);
 namespace SnapAuth;
 
 use Composer\InstalledVersions;
-use JsonException;
 use SensitiveParameter;
 
 use function assert;
-use function curl_close;
-use function curl_errno;
-use function curl_exec;
-use function curl_getinfo;
-use function curl_init;
-use function curl_setopt_array;
-use function curl_version;
 use function is_array;
 use function is_string;
 use function json_decode;
 use function json_encode;
 use function sprintf;
 use function strlen;
-
-use const CURLE_OK;
-use const CURLINFO_RESPONSE_CODE;
-use const CURLOPT_HTTPHEADER;
-use const CURLOPT_POST;
-use const CURLOPT_POSTFIELDS;
-use const CURLOPT_RETURNTRANSFER;
-use const CURLOPT_URL;
-use const JSON_THROW_ON_ERROR;
 
 /**
  * SDK Prototype. This makes no attempt to short-circuit the network for
