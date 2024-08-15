@@ -12,7 +12,6 @@ interface TransportInterface
      * API and is not subject to SemVer.
      *
      * @param mixed[] $params
-     * @return mixed[]
      */
-    public function makeApiCall(string $route, array $params): array;
+    public function makeApiCall(string $route, array $params): Response;
 }

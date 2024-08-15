@@ -16,7 +16,7 @@ final class Psr implements TransportInterface
     ) {
     }
 
-    public function makeApiCall(string $route, array $params): array
+    public function makeApiCall(string $route, array $params): Response
     {
         $json = json_encode($params, JSON_THROW_ON_ERROR);
         $stream = $this->streamFactory->createStream($json);
@@ -34,11 +34,13 @@ final class Psr implements TransportInterface
         $response = $this->client->sendRequest($request);
 
         $code = $response->getStatusCode();
-        if ($code >= 300) {
-            // error
-        }
 
         $responseJson = (string) $response->getBody();
-        // decode, index
+        if (!json_validate($responseJson)) {
+            // ??
+        }
+        $decoded = json_decode($responseJson, true, flags: JSON_THROW_ON_ERROR);
+        assert(is_array($decoded));
+        return new Response($code, $decoded);
     }
 }

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace SnapAuth\Transport;
 
+use JsonException;
+
 final class Curl implements TransportInterface
 {
-    public function makeApiCall(string $route, array $params): array
+    public function makeApiCall(string $route, array $params): Response
     {
         // TODO: PSR-xx
         $json = json_encode($params, JSON_THROW_ON_ERROR);
@@ -40,14 +42,11 @@ final class Curl implements TransportInterface
                 $this->error();
             }
 
-            if ($code >= 300) {
-                $this->error();
-            }
             // Handle non-200s, non-JSON (severe upstream error)
             assert(is_string($response));
             $decoded = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
             assert(is_array($decoded));
-            return $decoded['result'];
+            return new Response(code: $code, decoded: $decoded);
         } catch (JsonException) {
             $this->error();
         } finally {
