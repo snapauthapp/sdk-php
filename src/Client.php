@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SnapAuth;
 
-use Composer\InstalledVersions;
 use SensitiveParameter;
 
 use function assert;

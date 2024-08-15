@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SnapAuth\Transport;
 
+use Composer\InstalledVersions;
 use JsonException;
 
 use function curl_close;
