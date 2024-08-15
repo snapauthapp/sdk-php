@@ -23,12 +23,12 @@ final class Psr implements TransportInterface
 
         $request = $this->requestFactory
             ->createRequest(method: 'POST', uri: $url)
-            ->withHeader('Authoriation', 'Basic blahblah')
+            ->withHeader('Authoriation', 'Basic blahblah') // FIXME
             ->withHeader('Accept', 'application/json')
             ->withHeader('Content-type', 'application/json')
             ->withHeader('Content-length', (string) strlen($json))
-            ->withHeader('User-agent', 'blahblah psr')
-            ->withHeader('X-SDK', 'php/%s');
+            ->withHeader('User-agent', 'blahblah psr') // FIXME
+            ->withHeader('X-SDK', 'php/%s'); // FIXME
 
         // try/catch
         $response = $this->client->sendRequest($request);
