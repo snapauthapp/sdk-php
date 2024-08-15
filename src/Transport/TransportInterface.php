@@ -13,5 +13,5 @@ interface TransportInterface
      *
      * @param mixed[] $params
      */
-    public function makeApiCall(string $route, array $params): Response;
+    public function makeApiCall(string $url, array $params): Response;
 }

@@ -94,7 +94,8 @@ class Client
      */
     public function makeApiCall(string $route, array $params): array
     {
-        $result = $this->transport->makeApiCall($route, $params);
+        $url = sprintf('%s%s', $this->apiHost, $route);
+        $result = $this->transport->makeApiCall(url: $url, params: $params);
         if ($result->code >= 300) {
             $this->error();
         }

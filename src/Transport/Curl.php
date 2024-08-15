@@ -25,13 +25,13 @@ use const JSON_THROW_ON_ERROR;
 
 final class Curl implements TransportInterface
 {
-    public function makeApiCall(string $route, array $params): Response
+    public function makeApiCall(string $url, array $params): Response
     {
         // TODO: PSR-xx
         $json = json_encode($params, JSON_THROW_ON_ERROR);
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL => sprintf('%s%s', $this->apiHost, $route),
+            CURLOPT_URL => $url,
             CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => $json,
             CURLOPT_RETURNTRANSFER => true,

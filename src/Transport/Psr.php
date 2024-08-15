@@ -16,17 +16,17 @@ final class Psr implements TransportInterface
     ) {
     }
 
-    public function makeApiCall(string $route, array $params): Response
+    public function makeApiCall(string $url, array $params): Response
     {
         $json = json_encode($params, JSON_THROW_ON_ERROR);
         $stream = $this->streamFactory->createStream($json);
 
         $request = $this->requestFactory
-            ->createRequest(method: 'POST', uri: $uri)
+            ->createRequest(method: 'POST', uri: $url)
             ->withHeader('Authoriation', 'Basic blahblah')
             ->withHeader('Accept', 'application/json')
             ->withHeader('Content-type', 'application/json')
-            ->withHeader('Content-length', strlen($json))
+            ->withHeader('Content-length', (string) strlen($json))
             ->withHeader('User-agent', 'blahblah psr')
             ->withHeader('X-SDK', 'php/%s');
 
