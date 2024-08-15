@@ -48,6 +48,7 @@ class Client
     public function __construct(
         #[SensitiveParameter] ?string $secretKey = null,
         private string $apiHost = self::DEFAULT_API_HOST,
+        private ?Transports $transports = null,
     ) {
         // Auto-detect if not provided
         if ($secretKey === null) {
