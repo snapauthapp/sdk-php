@@ -45,10 +45,12 @@ class Client
 
     private string $secretKey;
 
+    private Transport\TransportInterface $transport;
+
     public function __construct(
         #[SensitiveParameter] ?string $secretKey = null,
         private string $apiHost = self::DEFAULT_API_HOST,
-        private ?Transports $transports = null,
+        ?Transport\TransportInterface $transport = null,
     ) {
         // Auto-detect if not provided
         if ($secretKey === null) {
@@ -69,6 +71,10 @@ class Client
         }
 
         $this->secretKey = $secretKey;
+        if ($transport === null) {
+            $transport = new Transport\Curl();
+        }
+        $this->transport = $transport;
     }
 
     public function verifyAuthToken(string $authToken): AuthResponse
@@ -108,6 +114,7 @@ class Client
      */
     public function makeApiCall(string $route, array $params): array
     {
+        // this->transport->makeApiCall($route, $params)
         // TODO: PSR-xx
         $json = json_encode($params, JSON_THROW_ON_ERROR);
         $ch = curl_init();
