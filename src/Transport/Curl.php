@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SnapAuth\Transport;
 
-class Curl implements TransportInterface
+final class Curl implements TransportInterface
 {
     public function makeApiCall(string $route, array $params): array
     {

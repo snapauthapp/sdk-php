@@ -7,7 +7,7 @@ namespace SnapAuth\Transport;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\{RequestFactoryInterface, StreamFactoryInterface};
 
-class Psr implements TransportInterface
+final class Psr implements TransportInterface
 {
     public function __construct(
         public readonly ClientInterface $client,

@@ -114,8 +114,7 @@ class Client
      */
     public function makeApiCall(string $route, array $params): array
     {
-        // this->transport->makeApiCall($route, $params)
-        // TODO: PSR-xx
+        // $result = $this->transport->makeApiCall($route, $params);
         $json = json_encode($params, JSON_THROW_ON_ERROR);
         $ch = curl_init();
         curl_setopt_array($ch, [
@@ -176,6 +175,7 @@ class Client
         return [
             'apiHost' => $this->apiHost,
             'secretKey' => substr($this->secretKey, 0, 9) . '***' . substr($this->secretKey, -2),
+            'transport' => get_class($this->transport),
         ];
     }
 }

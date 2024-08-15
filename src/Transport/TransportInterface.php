@@ -6,4 +6,13 @@ namespace SnapAuth\Transport;
 
 interface TransportInterface
 {
+    /**
+     * @internal This method is made public for cases where APIs do not have
+     * native SDK support, but is NOT considered part of the public, stable
+     * API and is not subject to SemVer.
+     *
+     * @param mixed[] $params
+     * @return mixed[]
+     */
+    public function makeApiCall(string $route, array $params): array;
 }
