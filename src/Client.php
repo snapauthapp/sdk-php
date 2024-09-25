@@ -53,18 +53,12 @@ class Client
         if ($secretKey === null) {
             $env = getenv('SNAPAUTH_SECRET_KEY');
             if ($env === false) {
-                throw new ApiError(
-                    'Secret key missing. It can be explictly provided, or it ' .
-                    'can be auto-detected from the SNAPAUTH_SECRET_KEY ' .
-                    'environment variable.',
-                );
+                throw new Exception\MissingSecretKey();
             }
             $secretKey = $env;
         }
         if (!str_starts_with($secretKey, 'secret_')) {
-            throw new ApiError(
-                'Invalid secret key. Please verify you copied the full value from the SnapAuth dashboard.',
-            );
+            throw new Exception\InvalidSecretKey();
         }
 
         $this->secretKey = $secretKey;
