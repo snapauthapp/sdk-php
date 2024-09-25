@@ -147,27 +147,28 @@ class Client
             $decoded = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
         } catch (JsonException) {
             // Received non-JSON response - wrap and rethrow
-            throw new Exception\MalformedResponse('Received non-JSON response');
+            throw new Exception\MalformedResponse('Received non-JSON response', $code);
         }
 
         if (!is_array($decoded) || !array_key_exists('result', $decoded)) {
             // Received JSON response in an unexpected format
-            throw new Exception\MalformedResponse('Received JSON in an unexpected format');
+            throw new Exception\MalformedResponse('Received JSON in an unexpected format', $code);
         }
 
         // Success!
         if ($decoded['result'] !== null) {
+            assert($code >= 200 && $code < 300, 'Got a result with a non-2xx response');
             return $decoded['result'];
         }
 
         // The `null` result indicated an error. Parse out the response shape
         // more and throw an appropriate ApiError.
         if (!array_key_exists('errors', $decoded)) {
-            throw new Exception\MalformedResponse('Error details missing');
+            throw new Exception\MalformedResponse('Error details missing', $code);
         }
         $errors = $decoded['errors'];
         if (!is_array($errors) || !array_is_list($errors) || count($errors) === 0) {
-            throw new Exception\MalformedResponse('Error details are invalid or empty');
+            throw new Exception\MalformedResponse('Error details are invalid or empty', $code);
         }
 
         $primaryError = $errors[0];
@@ -176,7 +177,7 @@ class Client
             || !array_key_exists('code', $primaryError)
             || !array_key_exists('message', $primaryError)
         ) {
-            throw new Exception\MalformedResponse('Error details are invalid or empty');
+            throw new Exception\MalformedResponse('Error details are invalid or empty', $code);
         }
 
         // Finally, the error details are known to be in the correct shape.
