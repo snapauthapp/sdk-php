@@ -10,6 +10,8 @@ use SnapAuth\{
     ErrorCode,
 };
 
+use function sprintf;
+
 /**
  * The API returned a well-formed coded error message. Examine the $errorCode
  * property for additional information.
@@ -25,7 +27,15 @@ class CodedError extends RuntimeException implements ApiError
      */
     public function __construct(string $message, string $errorCode, int $httpCode)
     {
-        parent::__construct(message: "[$errorCode] $message", code: $httpCode);
+        parent::__construct(
+            message: sprintf(
+                '[HTTP %d] %s: %s',
+                $httpCode,
+                $errorCode,
+                $message,
+            ),
+            code: $httpCode,
+        );
         $this->errorCode = ErrorCode::tryFrom($errorCode) ?? ErrorCode::Unknown;
     }
 }
