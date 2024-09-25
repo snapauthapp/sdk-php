@@ -138,29 +138,49 @@ class Client
             if ($response === false || $errno !== CURLE_OK) {
                 throw new Exception\Network($errno);
             }
-
-            if ($code >= 300) {
-                $this->error();
-            }
-            // Handle non-200s, non-JSON (severe upstream error)
-            assert(is_string($response));
-            $decoded = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
-            assert(is_array($decoded));
-            return $decoded['result'];
-        } catch (JsonException) {
-            $this->error();
         } finally {
             curl_close($ch);
         }
-    }
 
-    /**
-     * TODO: specific error info!
-     */
-    private function error(): never
-    {
-        throw new ApiError();
-        // TODO: also make this more specific
+        assert(is_string($response), 'No response body despite CURLOPT_RETURNTRANSFER');
+        try {
+            $decoded = json_decode($response, true, flags: JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            // Received non-JSON response - wrap and rethrow
+            throw new Exception\MalformedResponse('Received non-JSON response');
+        }
+
+        if (!is_array($decoded) || !array_key_exists('result', $decoded)) {
+            // Received JSON response in an unexpected format
+            throw new Exception\MalformedResponse('Received JSON in an unexpected format');
+        }
+
+        // Success!
+        if ($decoded['result'] !== null) {
+            return $decoded['result'];
+        }
+
+        // The `null` result indicated an error. Parse out the response shape
+        // more and throw an appropriate ApiError.
+        if (!array_key_exists('errors', $decoded)) {
+            throw new Exception\MalformedResponse('Error details missing');
+        }
+        $errors = $decoded['errors'];
+        if (!is_array($errors) || !array_is_list($errors) || count($errors) === 0) {
+            throw new Exception\MalformedResponse('Error details are invalid or empty');
+        }
+
+        $primaryError = $errors[0];
+        if (
+            !is_array($primaryError)
+            || !array_key_exists('code', $primaryError)
+            || !array_key_exists('message', $primaryError)
+        ) {
+            throw new Exception\MalformedResponse('Error details are invalid or empty');
+        }
+
+        // Finally, the error details are known to be in the correct shape.
+
     }
 
     public function __debugInfo(): array
