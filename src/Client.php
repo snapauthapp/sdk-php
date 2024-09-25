@@ -180,7 +180,7 @@ class Client
         }
 
         // Finally, the error details are known to be in the correct shape.
-
+        throw new Exception\CodedError($primaryError['message'], $primaryError['code']);
     }
 
     public function __debugInfo(): array
