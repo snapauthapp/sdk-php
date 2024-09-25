@@ -136,7 +136,7 @@ class Client
             $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
 
             if ($response === false || $errno !== CURLE_OK) {
-                $this->error();
+                throw new Exception\Network($errno);
             }
 
             if ($code >= 300) {
