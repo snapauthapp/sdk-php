@@ -23,22 +23,20 @@ class ClientTest extends TestCase
     {
         assert(getenv('SNAPAUTH_SECRET_KEY') === false);
         putenv('SNAPAUTH_SECRET_KEY=invalid');
-        self::expectException(ApiError::class);
-        self::expectExceptionMessage('Invalid secret key.');
+        self::expectException(Exception\InvalidSecretKey::class);
         new Client();
     }
 
     public function testConstructSecretKeyAutodetectMissing(): void
     {
         assert(getenv('SNAPAUTH_SECRET_KEY') === false);
-        self::expectException(ApiError::class);
-        self::expectExceptionMessage('Secret key missing.');
+        self::expectException(Exception\MissingSecretKey::class);
         new Client();
     }
 
     public function testSecretKeyValidation(): void
     {
-        self::expectException(ApiError::class);
+        self::expectException(Exception\InvalidSecretKey::class);
         new Client(secretKey: 'not_a_secret');
     }
 
