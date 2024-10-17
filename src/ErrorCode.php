@@ -8,8 +8,6 @@ enum ErrorCode: string
 {
     case AuthenticatingUserAccountNotFound = 'AuthenticatingUserAccountNotFound';
     case EntityNotFound = 'EntityNotFound';
-    case HandleCannotChange = 'HandleCannotChange';
-    case HandleInUseByDifferentAccount = 'HandleInUseByDifferentAccount';
     case InvalidAuthorizationHeader = 'InvalidAuthorizationHeader';
     case InvalidInput = 'InvalidInput';
     case PermissionViolation = 'PermissionViolation';
@@ -19,6 +17,8 @@ enum ErrorCode: string
     case SecretKeyNotFound = 'SecretKeyNotFound';
     case TokenExpired = 'TokenExpired';
     case TokenNotFound = 'TokenNotFound';
+    case UsernameCannotChange = 'UsernameCannotChange';
+    case UsernameInUseByDifferentAccount = 'UsernameInUseByDifferentAccount';
     case UsingDeactivatedCredential = 'UsingDeactivatedCredential';
 
     /**

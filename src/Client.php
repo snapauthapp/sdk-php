@@ -76,7 +76,7 @@ class Client
 
     /**
      * @param array{
-     *   handle?: string,
+     *   username?: string,
      *   id: string,
      * } $user
      */

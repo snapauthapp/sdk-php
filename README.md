@@ -49,7 +49,7 @@ Once you obtain a registration token from your frontend, use the `Client` to com
 $token = 'value_from_frontend'; // $_POST['snapauth_token'] or similar
 $userInfo = [
   'id' => 'your_user_id',
-  'handle' => 'your_user_handle',
+  'username' => 'your_username',
 ];
 $snapAuth->attachRegistration($token, $userInfo);
 ```
@@ -64,24 +64,24 @@ This activates the passkey and associates it with the user.
 
 `id` should be some sort of _stable_ identifer, like a database primary key.
 
-`handle` can be anything you want, or omitted entirely.
+`username` can be anything you want, or omitted entirely.
 It's a convenience during _client_ authentication so you don't need to look up the user id again.
 This would commonly be the value a user provides to sign in, such as a username or email.
+It is _not_ a given name.
 
 Both must be strings, and can be up to 255 characters long.
 Lookups during authentication are **case-insensitive**.
 
 > [!TIP]
-> We strongly ENCOURAGE you to obfuscate any possibly sensitive information, such as email addresses.
-> You can accomplish this by hashing the value.
-> Be aware that to use the handle during authentication, you will want to replicate the obfuscation procedure on your frontend.
+> In order to preseve user privacy, we store only a one-way hash of the `username` values.
+> As a result, we cannot return the original value in other API calls.
 
 ### Authentication
 
 Like registration, you will need to obtain a token from your frontend provided by the client SDK.
 
 Use the `verifyAuthToken` method to get information about the authentication process, in the form of an `AuthResponse` object.
-This object contains the previously-registered User `id` and `handle`.
+This object contains the previously-registered User `id`.
 
 ```php
 $token = 'value_from_frontend'; // $_POST['snapauth_token'] or similar
