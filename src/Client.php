@@ -37,6 +37,9 @@ use const JSON_THROW_ON_ERROR;
  *
  * TODO: make testable, presumably via PSR-18
  * TODO: make an interface so the entire client can be mocked by developers
+ *
+ * @phpstan-import-type AuthResponseData from AuthResponse
+ * @phpstan-import-type CredentialData from Credential
  */
 class Client
 {
@@ -65,12 +68,14 @@ class Client
 
     public function verifyAuthToken(string $authToken): AuthResponse
     {
-        return new AuthResponse($this->makeApiCall(
+        /** @var AuthResponseData $data */
+        $data = $this->makeApiCall(
             route: '/auth/verify',
             params: [
                 'token' => $authToken,
             ]
-        ));
+        );
+        return new AuthResponse($data);
     }
 
     /**
@@ -81,13 +86,15 @@ class Client
      */
     public function attachRegistration(string $regToken, array $user): Credential
     {
-        return new Credential($this->makeApiCall(
+        /** @var CredentialData $data */
+        $data = $this->makeApiCall(
             route: '/credential/create',
             params: [
                 'token' => $regToken,
                 'user' => $user,
             ]
-        ));
+        );
+        return new Credential($data);
     }
 
     /**
@@ -95,17 +102,20 @@ class Client
      * native SDK support, but is NOT considered part of the public, stable
      * API and is not subject to SemVer.
      *
+     * @param non-empty-string $route
      * @param mixed[] $params
      * @return mixed[]
      */
     public function makeApiCall(string $route, array $params): array
     {
         // TODO: PSR-xx
+        $curlVersion = curl_version()['version'] ?? 'unknown';
+        assert(is_string($curlVersion));
         $json = json_encode($params, JSON_THROW_ON_ERROR);
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL => sprintf('%s%s', $this->apiHost, $route),
-            CURLOPT_POST => 1,
+            CURLOPT_URL => $this->apiHost . $route,
+            CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $json,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
@@ -116,7 +126,7 @@ class Client
                 sprintf(
                     'User-Agent: php-sdk/%s curl/%s php/%s',
                     InstalledVersions::getVersion('snapauth/sdk'),
-                    curl_version()['version'] ?? 'unknown',
+                    $curlVersion,
                     PHP_VERSION,
                 ),
                 sprintf('X-SDK: php/%s', InstalledVersions::getVersion('snapauth/sdk')),
@@ -147,6 +157,9 @@ class Client
         // Success!
         if ($decoded['result'] !== null) {
             assert($code >= 200 && $code < 300, 'Got a result with a non-2xx response');
+            if (!is_array($decoded['result'])) {
+                throw new Exception\MalformedResponse('Received JSON in an unexpected format', $code);
+            }
             return $decoded['result'];
         }
 
@@ -165,6 +178,8 @@ class Client
             !is_array($primaryError)
             || !array_key_exists('code', $primaryError)
             || !array_key_exists('message', $primaryError)
+            || !is_string($primaryError['code'])
+            || !is_string($primaryError['message'])
         ) {
             throw new Exception\MalformedResponse('Error details are invalid or empty', $code);
         }

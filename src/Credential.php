@@ -6,6 +6,19 @@ namespace SnapAuth;
 
 use DateTimeImmutable;
 
+/**
+ * @phpstan-type CredentialData array{
+ *   id: string,
+ *   aaguid: string,
+ *   name: string,
+ *   isActive: bool,
+ *   isBackedUp: bool,
+ *   isBackupEligible: bool,
+ *   isUvInitialized: bool,
+ *   createdAt: int,
+ *   transports: string[],
+ * }
+ */
 class Credential
 {
     public readonly string $id;
@@ -25,20 +38,7 @@ class Credential
      * @internal The Credential object is part of the SDK, but its constructor
      * is not part of SemVer scope.
      *
-     * @phpstan-ignore-next-line
-     *
-     * This is the correct shape:
-     * param array{
-     *   id: string,
-     *   aaguid: string,
-     *   name: string,
-     *   isActive: bool,
-     *   isBackedUp: bool,
-     *   isBackupEligible: bool,
-     *   isUvInitialized: bool,
-     *   createdAt: int,
-     *   transports: string[],
-     * } $data
+     * @param CredentialData $data
      */
     public function __construct(array $data)
     {

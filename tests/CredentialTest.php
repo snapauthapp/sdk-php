@@ -12,12 +12,14 @@ use PHPUnit\Framework\TestCase;
 
 use function assert;
 use function file_get_contents;
-use function is_array;
 use function json_decode;
 use function sprintf;
 
 use const JSON_THROW_ON_ERROR;
 
+/**
+ * @phpstan-import-type CredentialData from Credential
+ */
 #[CoversClass(Credential::class)]
 #[Small]
 class CredentialTest extends TestCase
@@ -58,15 +60,15 @@ class CredentialTest extends TestCase
     }
 
     /**
-     * @return mixed[]
+     * @return CredentialData
      */
     private function readFixture(string $path): array
     {
         $path = sprintf('%s/%s/%s', __DIR__, 'fixtures', $path);
         $json = file_get_contents($path);
         assert($json !== false);
+        /** @var CredentialData $data */
         $data = json_decode($json, true, flags: JSON_THROW_ON_ERROR);
-        assert(is_array($data));
         return $data;
     }
 }
