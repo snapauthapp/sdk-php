@@ -102,6 +102,8 @@ class Client
     public function makeApiCall(string $route, array $params): array
     {
         // TODO: PSR-xx
+        $curlVersion = curl_version()['version'] ?? 'unknown';
+        assert(is_string($curlVersion));
         $json = json_encode($params, JSON_THROW_ON_ERROR);
         $ch = curl_init();
         curl_setopt_array($ch, [
@@ -117,7 +119,7 @@ class Client
                 sprintf(
                     'User-Agent: php-sdk/%s curl/%s php/%s',
                     InstalledVersions::getVersion('snapauth/sdk'),
-                    curl_version()['version'] ?? 'unknown',
+                    $curlVersion,
                     PHP_VERSION,
                 ),
                 sprintf('X-SDK: php/%s', InstalledVersions::getVersion('snapauth/sdk')),
