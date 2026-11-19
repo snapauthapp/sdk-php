@@ -171,6 +171,8 @@ class Client
             !is_array($primaryError)
             || !array_key_exists('code', $primaryError)
             || !array_key_exists('message', $primaryError)
+            || !is_string($primaryError['code'])
+            || !is_string($primaryError['message'])
         ) {
             throw new Exception\MalformedResponse('Error details are invalid or empty', $code);
         }
