@@ -14,7 +14,7 @@ class ClientTest extends TestCase
     public function testConstructApi(): void
     {
         $client = new Client(secretKey: 'secret_abc_123');
-        // @phpstan-ignore-next-line BC enforcement check
+        // @phpstan-ignore staticMethod.alreadyNarrowedType (BC enforcement check)
         self::assertInstanceOf(Client::class, $client);
     }
 

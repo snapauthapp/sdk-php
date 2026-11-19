@@ -22,6 +22,7 @@ use function json_encode;
 use function sprintf;
 use function strlen;
 
+use const CURLE_FAILED_INIT;
 use const CURLE_OK;
 use const CURLINFO_RESPONSE_CODE;
 use const CURLOPT_HTTPHEADER;
@@ -113,6 +114,9 @@ class Client
         assert(is_string($curlVersion));
         $json = json_encode($params, JSON_THROW_ON_ERROR);
         $ch = curl_init();
+        if ($ch === false) {
+            throw new Exception\Network(CURLE_FAILED_INIT);
+        }
         curl_setopt_array($ch, [
             CURLOPT_URL => $this->apiHost . $route,
             CURLOPT_POST => true,
