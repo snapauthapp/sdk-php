@@ -54,6 +54,8 @@ jobs:
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
+        with:
+          tools: composer-require-checker
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -75,4 +77,4 @@ jobs:
           --prefer-dist
 
       - name: Composer require-checker
-        run: vendor/bin/composer-require-checker check
+        run: composer-require-checker check
