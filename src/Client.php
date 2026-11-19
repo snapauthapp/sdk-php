@@ -150,6 +150,9 @@ class Client
         // Success!
         if ($decoded['result'] !== null) {
             assert($code >= 200 && $code < 300, 'Got a result with a non-2xx response');
+            if (!is_array($decoded['result'])) {
+                throw new Exception\MalformedResponse('Received JSON in an unexpected format', $code);
+            }
             return $decoded['result'];
         }
 
