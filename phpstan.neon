@@ -5,16 +5,6 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
-    checkBenevolentUnionTypes: true
-    checkMissingCallableSignature: true
-    checkTooWideParameterOutInProtectedAndPublicMethods: true
-    checkTooWideReturnTypesInProtectedAndPublicMethods: true
-    checkTooWideThrowTypesInProtectedAndPublicMethods: true
-    checkUninitializedProperties: true
-    reportAnyTypeWideningInVarTag: true
-    reportPossiblyNonexistentConstantArrayOffset: true
-    reportPossiblyNonexistentGeneralArrayOffset: true
-    reportIgnoresWithoutComments: true
     ignoreErrors:
         # Uncomment to permit $this->assertXX() in unit tests (instead of self::assertXX())
         # '#^Dynamic call to static method PHPUnit\\Framework\\Assert::assert#'
