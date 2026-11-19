@@ -6,6 +6,9 @@ on:
       - main
   pull_request:
     # Run on all PRs
+  schedule:
+    # Catch breakage from new PHP patch releases and dependency updates
+    - cron: '0 12 1 * *'
 
 env:
   CI: "true"
