@@ -38,7 +38,6 @@ jobs:
           --no-ansi
           --no-interaction
           --no-progress
-          --no-suggest
           --prefer-dist
 
       - name: PHPStan
@@ -73,7 +72,6 @@ jobs:
           --no-ansi
           --no-interaction
           --no-progress
-          --no-suggest
           --prefer-dist
 
       - name: Composer require-checker
