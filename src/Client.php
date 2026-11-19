@@ -95,6 +95,7 @@ class Client
      * native SDK support, but is NOT considered part of the public, stable
      * API and is not subject to SemVer.
      *
+     * @param non-empty-string $route
      * @param mixed[] $params
      * @return mixed[]
      */
@@ -104,8 +105,8 @@ class Client
         $json = json_encode($params, JSON_THROW_ON_ERROR);
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL => sprintf('%s%s', $this->apiHost, $route),
-            CURLOPT_POST => 1,
+            CURLOPT_URL => $this->apiHost . $route,
+            CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $json,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
