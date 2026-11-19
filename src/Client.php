@@ -37,6 +37,9 @@ use const JSON_THROW_ON_ERROR;
  *
  * TODO: make testable, presumably via PSR-18
  * TODO: make an interface so the entire client can be mocked by developers
+ *
+ * @phpstan-import-type AuthResponseData from AuthResponse
+ * @phpstan-import-type CredentialData from Credential
  */
 class Client
 {
@@ -65,12 +68,14 @@ class Client
 
     public function verifyAuthToken(string $authToken): AuthResponse
     {
-        return new AuthResponse($this->makeApiCall(
+        /** @var AuthResponseData $data */
+        $data = $this->makeApiCall(
             route: '/auth/verify',
             params: [
                 'token' => $authToken,
             ]
-        ));
+        );
+        return new AuthResponse($data);
     }
 
     /**
@@ -81,13 +86,15 @@ class Client
      */
     public function attachRegistration(string $regToken, array $user): Credential
     {
-        return new Credential($this->makeApiCall(
+        /** @var CredentialData $data */
+        $data = $this->makeApiCall(
             route: '/credential/create',
             params: [
                 'token' => $regToken,
                 'user' => $user,
             ]
-        ));
+        );
+        return new Credential($data);
     }
 
     /**
