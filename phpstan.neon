@@ -5,6 +5,7 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
+    checkBenevolentUnionTypes: true
     checkMissingCallableSignature: true
     checkTooWideParameterOutInProtectedAndPublicMethods: true
     checkTooWideReturnTypesInProtectedAndPublicMethods: true
