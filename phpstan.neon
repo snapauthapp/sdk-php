@@ -13,6 +13,7 @@ parameters:
     reportAnyTypeWideningInVarTag: true
     reportPossiblyNonexistentConstantArrayOffset: true
     reportPossiblyNonexistentGeneralArrayOffset: true
+    reportIgnoresWithoutComments: true
     ignoreErrors:
         # Uncomment to permit $this->assertXX() in unit tests (instead of self::assertXX())
         # '#^Dynamic call to static method PHPUnit\\Framework\\Assert::assert#'
