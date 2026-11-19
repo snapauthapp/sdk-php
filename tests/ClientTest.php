@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace SnapAuth;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \SnapAuth\Client
- */
+#[CoversClass(Client::class)]
 class ClientTest extends TestCase
 {
     public function testConstructApi(): void
