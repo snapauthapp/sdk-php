@@ -9,7 +9,6 @@ use JsonException;
 use SensitiveParameter;
 
 use function assert;
-use function curl_close;
 use function curl_errno;
 use function curl_exec;
 use function curl_getinfo;
@@ -124,16 +123,12 @@ class Client
             ],
         ]);
 
-        try {
-            $response = curl_exec($ch);
-            $errno = curl_errno($ch);
-            $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $response = curl_exec($ch);
+        $errno = curl_errno($ch);
+        $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
 
-            if ($response === false || $errno !== CURLE_OK) {
-                throw new Exception\Network($errno);
-            }
-        } finally {
-            curl_close($ch);
+        if ($response === false || $errno !== CURLE_OK) {
+            throw new Exception\Network($errno);
         }
 
         assert(is_string($response), 'No response body despite CURLOPT_RETURNTRANSFER');
